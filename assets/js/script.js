@@ -40,6 +40,8 @@ var retrieveData = function (city) {
 };
 
 var displayToday = function (data, city) {
+    saveCity(city);
+
     // parses data into page, define variables first 
     console.log(data)
     var temp = data.current.temp;
@@ -122,9 +124,11 @@ var dayTempAppend = function (temp, wind, humidity, uvi) {
     }
     // append list element to page
     tempValsEl.appendChild(listEl);
-    
 }
 
+var saveCity = function (city) {
+    localStorage.setItem("city", city);
+}
 
 var getCity = function (event) {
     // retrieves text input from user and inserts into variable city
