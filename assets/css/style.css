@@ -5,10 +5,30 @@
 
 header {
     background: linear-gradient(90deg, rgb(30, 144, 255), rgb(75, 0, 130));
+    height: 10vh;
+    margin-bottom: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header h1 {
     color: white;
-    text-align: center;
     font-weight: 700;
+}
+
+div input {
+    width: 100%;
+    outline-style: solid;
+    outline-width: 0.5px;
+    height: 5vh;
+}
+
+.btn {
+    width: 100%;
+    opacity: 0.7;
+}
+
+.btn:hover {
+    opacity: 1;
 }
