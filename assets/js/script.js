@@ -140,22 +140,38 @@ var dayTempAppend = function (temp, wind, humidity, uvi) {
     tempValsEl.appendChild(listEl);
 };
 
+var historyButtons = function (city) {
+	// add current city to storage and insert in page
+	var cityButtonEl = document.createElement("button");
+	cityButtonEl.setAttribute("type", "submit");
+	cityButtonEl.classList = "btn btn-secondary text-capitalize";
+	cityButtonEl.textContent = city;
+
+	// append to page
+	saveCityEl.appendChild(cityButtonEl);
+}
+
 var saveCity = function (city) {
     if (cityArr.indexOf(city) === -1) {
         cityArr.push(city);
         
-		// add current city to storage and insert in page
-		var cityButtonEl = document.createElement("button");
-		cityButtonEl.setAttribute("type", "submit");
-		cityButtonEl.classList = "btn btn-secondary text-capitalize";
-		cityButtonEl.textContent = city;
-
-		// append to page
-		saveCityEl.appendChild(cityButtonEl);
+        // save city to page 
+        historyButtons(city);
 	}
 
     localStorage.setItem("city", cityArr);
 };
+
+var loadCities = function () {
+    // retrieve city
+    cityArr = localStorage.getItem("city");
+    cityArr = cityArr.split(",");
+
+    // setup history buttons
+    for (var i = 0; i < cityArr.length; i++) {
+        historyButtons(cityArr[i]);
+    }    
+}
 
 var getCity = function (event) {
 
@@ -167,8 +183,8 @@ var getCity = function (event) {
 };
 
 
+loadCities();
 submitButtonEl.addEventListener("click", getCity);
-
 $(".save-city").on("click", ".btn-secondary", function (event) {
     var city = event.target.textContent;
 
