@@ -23,6 +23,7 @@ div input {
     outline-width: 0.5px;
     height: 5vh;
 }
+
 .btn {
     width: 100%;
     opacity: 0.7;
@@ -30,6 +31,14 @@ div input {
 
 .btn:hover {
     opacity: 1;
+}
+
+#sbm-btn {
+    margin-bottom: 3vh;
+}
+
+.today-weather {
+    opacity: 0;
 }
 
 .cityHeader {
@@ -42,6 +51,11 @@ div input {
     padding-left: 1vh;
     border: none;
     padding-top: 0.5vh;
+}
+
+.save-city {
+    padding-top: 3vh;
+    border-top: solid 1px black;
 }
 
 .green {
@@ -69,4 +83,8 @@ div input {
     color: white;
     margin-left: 1vh;
     width: 8vh;
+}
+
+.btn-secondary {
+    margin-bottom: 2vh;
 }

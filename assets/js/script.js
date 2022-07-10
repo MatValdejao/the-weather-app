@@ -1,5 +1,9 @@
 const myAPIKey = "f7f892d9d77561663b2b4d372eb3311d";
 var submitButtonEl = document.getElementById("sbm-btn");
+var saveCityEl = document.querySelector(".save-city");
+
+// hold local storage of city
+var cityArr = [];
 
 var retrieveData = function (city) {
     // get weather in imperial unit
@@ -40,10 +44,13 @@ var retrieveData = function (city) {
 };
 
 var displayToday = function (data, city) {
+    // removes current display to make room for new city call
+    headerRemove();
+    dayTempRemove();
+
     saveCity(city);
 
     // parses data into page, define variables first 
-    console.log(data)
     var temp = data.current.temp;
     date = moment().format("MM" + "/" + "DD" + "/" + "YYYY");
     var city = city;
@@ -52,10 +59,6 @@ var displayToday = function (data, city) {
     var humidity = data.current.humidity;
     var uvi = data.current.uvi;
 
-    // sets border for parent row element
-    var rowDivEl = document.querySelector(".today-weather");
-    rowDivEl.classList = "border border-dark";
-
     // append the city header
     headerAppend(date, city, icon);
     
@@ -63,7 +66,15 @@ var displayToday = function (data, city) {
     dayTempAppend(temp, wind, humidity, uvi);
 }
 
+var headerRemove = function () {
+	$(".cityHeader").remove();
+};
+
 var headerAppend = function (date, city, icon) {
+    // sets border for parent row element
+    var rowDivEl = document.querySelector(".today-weather");
+    rowDivEl.style.opacity = "1";
+
     // select col-header element 
     var divColHeaderEl = document.querySelector(".col-header");
 
@@ -80,6 +91,10 @@ var headerAppend = function (date, city, icon) {
     divColHeaderEl.appendChild(headerEl);
 }
 
+var dayTempRemove = function () {
+	$(".list-group").remove();
+};
+
 var dayTempAppend = function (temp, wind, humidity, uvi) {
     // select parent element
     var tempValsEl = document.querySelector(".col-temp-vals");
@@ -91,7 +106,7 @@ var dayTempAppend = function (temp, wind, humidity, uvi) {
     // create array to loop over
     var dataList = [temp, wind, humidity, uvi];
 
-	//loop through all data and insert as list-item
+    //loop through all data and insert as list-item
     for (var i = 0; i < dataList.length; i++) {
         var itemListEl = document.createElement("li");
         itemListEl.classList = "list-group-item";
@@ -102,7 +117,6 @@ var dayTempAppend = function (temp, wind, humidity, uvi) {
         } else if (i === 2) {
             itemListEl.textContent = "Humidity: " + dataList[i] + " %";
         } else {
-            console.log(dataList[i]);
             if (parseInt(dataList[i]) <= 2) {
                 itemListEl.innerHTML =
                     "UV Index:<button class='btn green'>" +
@@ -124,21 +138,40 @@ var dayTempAppend = function (temp, wind, humidity, uvi) {
     }
     // append list element to page
     tempValsEl.appendChild(listEl);
-}
+};
 
 var saveCity = function (city) {
-    localStorage.setItem("city", city);
-}
+    if (cityArr.indexOf(city) === -1) {
+        cityArr.push(city);
+        
+		// add current city to storage and insert in page
+		var cityButtonEl = document.createElement("button");
+		cityButtonEl.setAttribute("type", "submit");
+		cityButtonEl.classList = "btn btn-secondary text-capitalize";
+		cityButtonEl.textContent = city;
+
+		// append to page
+		saveCityEl.appendChild(cityButtonEl);
+	}
+
+    localStorage.setItem("city", cityArr);
+};
 
 var getCity = function (event) {
+
     // retrieves text input from user and inserts into variable city
     var city = $(this).siblings(".form-control").val().trim()
 
     // calls api to retrieve city data
     retrieveData(city);
-}
+};
 
 
 submitButtonEl.addEventListener("click", getCity);
 
+$(".save-city").on("click", ".btn-secondary", function (event) {
+    var city = event.target.textContent;
+
+    retrieveData(city);
+})
 
