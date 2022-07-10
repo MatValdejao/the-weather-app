@@ -4,7 +4,7 @@
 }
 
 header {
-    background: linear-gradient(90deg, rgb(30, 144, 255), rgb(75, 0, 130));
+    background: linear-gradient(90deg, rgb(30, 144, 255), rgb(55, 0, 120));
     height: 10vh;
     margin-bottom: 2vh;
     display: flex;
