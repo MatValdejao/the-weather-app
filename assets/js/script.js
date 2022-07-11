@@ -59,47 +59,44 @@ var retrieveData = function (city) {
 };
 
 var displayForecast = function (data, city) {
-    var headerEl = document.querySelector("h3");
-    headerEl.innerHTML = "<strong>5-Day Forecast:</strong>";
+	var headerEl = document.querySelector("h3");
+	headerEl.innerHTML = "<strong>5-Day Forecast:</strong>";
 
-    // loop through first five days of forecast
-    // add each day forecast to page
-    for (var i = 0; i < 5; i++) {
-        console.log(data.list[i])
-        var daysAheadEl = document.getElementById("day" + (i + 1));
+	// select all elements with class future-day
+	var forecastEl = document.querySelectorAll(".future-day");
 
-        var date = moment()
-            .add(i + 1, "days")
-            .format("MM" + "/" + "DD" + "/" + "YYYY");
-        var humidity = "Humidity: " + data.list[i].main.humidity + " %";
-        var temp = "Temp: " + data.list[i].main.temp + "°F";
-        var wind = "Wind: " + data.list[i].wind.speed + "MPH";
-        var icon = data.list[i].weather[0].icon;
+	// loop through first five days of forecast
+	// add each day forecast to page
+	for (var i = 0; i < forecastEl.length; i++) {
+		var date = moment(data.list[i].date_text)
+			.add(i + 1, "days")
+			.format("MM" + "/" + "DD" + "/" + "YYYY");
+		var humidity = "Humidity: " + data.list[i].main.humidity + " %";
+		var temp = "Temp: " + data.list[i].main.temp + "°F";
+		var wind = "Wind: " + data.list[i].wind.speed + "MPH";
+		var icon = data.list[i].weather[0].icon;
 
-        // pair all value sin array to loop through
-        var pairValues = [date, icon, temp, wind, humidity];
+		var dateEl = document.createElement("p");
+		dateEl.textContent = date;
+		forecastEl[i].appendChild(dateEl);
 
-        // create list to hold values
-        var listEl = document.createElement("ul");
-        listEl.classList = "list-group";
-        
-        // set values for that specific day and append to page
-        for (var i = 0; i < pairValues.length; i++) {
-            var itemListEl = document.createElement("li");
-            itemListEl.classList = "list-group-item";
-            if (pairValues[i] !== icon) {
-                itemListEl.innerHTML = pairValues[i];
-            }
-            else {
-                itemListEl.innerHTML =
-                    "<img src='http://openweathermap.org/img/wn/" +
-                    icon +
-                    ".png'/>";
-            }
-            listEl.appendChild(itemListEl);
-        }
-        daysAheadEl.appendChild(listEl);
-    }
+		var tempEl = document.createElement("p");
+		tempEl.textContent = temp;
+		forecastEl[i].appendChild(tempEl);
+
+		var iconEl = document.createElement("p");
+		iconEl.innerHTML =
+			"<img src='http://openweathermap.org/img/wn/" + icon + ".png'/>";
+		forecastEl[i].appendChild(iconEl);
+
+		var windEl = document.createElement("p");
+		windEl.textContent = wind;
+		forecastEl[i].appendChild(windEl);
+
+		var humidityEl = document.createElement("p");
+		humidity.textContent = humidity;
+		forecastEl[i].appendChild(humidityEl);
+	}
 }
 
 var displayToday = function (data, city) {
@@ -111,7 +108,7 @@ var displayToday = function (data, city) {
 
     // parses data into page, define variables first 
     var temp = data.current.temp;
-    date = moment().format("MM" + "/" + "DD" + "/" + "YYYY");
+    var date = moment(data.current.date_text).format("MM" + "/" + "DD" + "/" + "YYYY");
     var city = city;
     var wind = data.current.wind_speed;
     var icon = data.current.weather[0].icon;
