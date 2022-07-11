@@ -93,13 +93,14 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .card {
     border: none;
     color: white;
-    background-color: rgb(52, 57, 110);
+    background-color: rgb(48, 51, 84);
+    margin-bottom: 1vh;
 }
 
 .card-title {
