@@ -259,9 +259,13 @@ var getCity = function (event) {
     retrieveData(city);
 };
 
-
+// upon page open and restore them to page as buttons using history buttons function
 loadCities();
+
+// upon search button click, call getCity function
 submitButtonEl.addEventListener("click", getCity);
+
+// upon historical button click, retrieve that city's data
 $(".save-city").on("click", ".btn-secondary", function (event) {
     var city = event.target.textContent;
 
