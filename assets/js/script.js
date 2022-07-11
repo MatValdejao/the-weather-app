@@ -66,36 +66,49 @@ var displayForecast = function (data, city) {
     var forecastEl = $(".future-day");
     forecastEl.children("p").remove();
 
+
 	// loop through first five days of forecast
 	// add each day forecast to page
-	for (var i = 0; i < forecastEl.length; i++) {
+    for (var i = 0; i < forecastEl.length; i++) {
+        // extract info for 5 days in future 
 		var date = moment(data.list[i].date_text)
 			.add(i + 1, "days")
 			.format("MM" + "/" + "DD" + "/" + "YYYY");
 		var humidity = "Humidity: " + data.list[i].main.humidity + " %";
 		var temp = "Temp: " + data.list[i].main.temp + "°F";
-		var wind = "Wind: " + data.list[i].wind.speed + "MPH";
-		var icon = data.list[i].weather[0].icon;
-
-		var dateEl = document.createElement("p");
+		var wind = "Wind: " + data.list[i].wind.speed + " MPH";
+        var icon = data.list[i].weather[0].icon;
+        
+        // create elements for each data value and append to card element on page
+        var dateEl = document.createElement("h6");
+        dateEl.classList = "card-title";
 		dateEl.textContent = date;
 		forecastEl[i].appendChild(dateEl);
 
-		var tempEl = document.createElement("p");
-		tempEl.textContent = temp;
-		forecastEl[i].appendChild(tempEl);
-
-		var iconEl = document.createElement("p");
+        // icon append
+        var iconEl = document.createElement("p");
+        iconEl.classList = "card-text";
 		iconEl.innerHTML =
 			"<img src='http://openweathermap.org/img/wn/" + icon + ".png'/>";
 		forecastEl[i].appendChild(iconEl);
 
-		var windEl = document.createElement("p");
-		windEl.textContent = wind;
-		forecastEl[i].appendChild(windEl);
+        // temp append
+        var tempEl = document.createElement("p");
+		tempEl.classList = "card-text";
+		tempEl.textContent = temp;
+		forecastEl[i].appendChild(tempEl);
 
+        // wind append
+		var windEl = document.createElement("p");
+        windEl.textContent = wind;
+        windEl.classList = "card-text";
+        forecastEl[i].appendChild(windEl);
+        
+        // humidity append
 		var humidityEl = document.createElement("p");
-		humidity.textContent = humidity;
+        humidityEl.textContent = humidity;
+        humidityEl.style.paddingBottom = "1vh";
+        humidityEl.classList = "card-text";
 		forecastEl[i].appendChild(humidityEl);
 	}
 }

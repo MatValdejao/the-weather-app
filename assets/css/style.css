@@ -89,6 +89,24 @@ h3 {
     width: 8vh;
 }
 
+.forecast-days {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.card {
+    border: none;
+    color: white;
+    background-color: rgb(52, 57, 110);
+}
+
+.card-title {
+    font-weight: bold;
+    padding-top: 1vh;
+}
+
 .btn-secondary {
     margin-bottom: 2vh;
 }
