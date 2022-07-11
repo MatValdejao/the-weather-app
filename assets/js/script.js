@@ -18,12 +18,27 @@ var retrieveData = function (city) {
                 
                 // this has uv info
                 var url2 = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + myAPIKey + "&units=imperial";
-
                 fetch(url2).then(function (response) {
                     if (response.ok) {
                         response.json().then(function (data) {
                             // call display today function to insert today's data
                             displayToday(data, city);
+                        })
+                    }
+                    else {
+                        alert("Error: City Not Found");
+                    }
+                }).catch(function (error) {
+                    alert("Unable to connect to Open Weather")
+                })
+                
+                // forecast info
+                var url3 = "https://api.openweathermap.org/data/2.5/forecast/?lat=" + lat + "&lon=" + lon + "&appid=" + myAPIKey + "&units=imperial";
+                fetch(url3).then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (data) {
+                            // call function to display forecast
+                            displayForecast(data, city);
                         })
                     }
                     else {
@@ -42,6 +57,50 @@ var retrieveData = function (city) {
         alert("Unable to connect to Open Weather");
     });
 };
+
+var displayForecast = function (data, city) {
+    var headerEl = document.querySelector("h3");
+    headerEl.innerHTML = "<strong>5-Day Forecast:</strong>";
+
+    // loop through first five days of forecast
+    // add each day forecast to page
+    for (var i = 0; i < 5; i++) {
+        console.log(data.list[i])
+        var daysAheadEl = document.getElementById("day" + (i + 1));
+
+        var date = moment()
+            .add(i + 1, "days")
+            .format("MM" + "/" + "DD" + "/" + "YYYY");
+        var humidity = "Humidity: " + data.list[i].main.humidity + " %";
+        var temp = "Temp: " + data.list[i].main.temp + "°F";
+        var wind = "Wind: " + data.list[i].wind.speed + "MPH";
+        var icon = data.list[i].weather[0].icon;
+
+        // pair all value sin array to loop through
+        var pairValues = [date, icon, temp, wind, humidity];
+
+        // create list to hold values
+        var listEl = document.createElement("ul");
+        listEl.classList = "list-group";
+        
+        // set values for that specific day and append to page
+        for (var i = 0; i < pairValues.length; i++) {
+            var itemListEl = document.createElement("li");
+            itemListEl.classList = "list-group-item";
+            if (pairValues[i] !== icon) {
+                itemListEl.innerHTML = pairValues[i];
+            }
+            else {
+                itemListEl.innerHTML =
+                    "<img src='http://openweathermap.org/img/wn/" +
+                    icon +
+                    ".png'/>";
+            }
+            listEl.appendChild(itemListEl);
+        }
+        daysAheadEl.appendChild(listEl);
+    }
+}
 
 var displayToday = function (data, city) {
     // removes current display to make room for new city call
@@ -85,7 +144,7 @@ var headerAppend = function (date, city, icon) {
     headerEl.innerHTML =
 			"<strong>" +
 			headerEl.textContent +
-			"<img src='http://openweathermap.org/img/wn/" + icon + ".png'</strong>";
+			"<img src='http://openweathermap.org/img/wn/" + icon + ".png'/></strong>";
     
     // append header to page
     divColHeaderEl.appendChild(headerEl);
@@ -173,10 +232,17 @@ var loadCities = function () {
     }    
 }
 
+var getCityForecast = function (event) {
+    var city = $(this).siblings(".form-control").val().trim();
+
+    // calls for forecast information
+    getForecast(city);
+}
+
 var getCity = function (event) {
 
     // retrieves text input from user and inserts into variable city
-    var city = $(this).siblings(".form-control").val().trim()
+    var city = $(this).siblings(".form-control").val().trim();
 
     // calls api to retrieve city data
     retrieveData(city);

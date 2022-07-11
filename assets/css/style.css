@@ -24,6 +24,10 @@ div input {
     height: 5vh;
 }
 
+h3 {
+    padding-top: 2vh;
+}
+
 .btn {
     width: 100%;
     opacity: 0.7;
