@@ -63,7 +63,8 @@ var displayForecast = function (data, city) {
 	headerEl.innerHTML = "<strong>5-Day Forecast:</strong>";
 
 	// select all elements with class future-day
-	var forecastEl = document.querySelectorAll(".future-day");
+    var forecastEl = $(".future-day");
+    forecastEl.children("p").remove();
 
 	// loop through first five days of forecast
 	// add each day forecast to page
