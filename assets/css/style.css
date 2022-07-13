@@ -4,11 +4,110 @@
 }
 
 header {
-    background: linear-gradient(90deg, rgb(30, 144, 255), rgb(75, 0, 130));
+    background: linear-gradient(90deg, rgb(30, 144, 255), rgb(55, 0, 120));
+    height: 10vh;
+    margin-bottom: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header h1 {
     color: white;
-    text-align: center;
     font-weight: 700;
+}
+
+div input {
+    width: 100%;
+    outline-style: solid;
+    outline-width: 0.5px;
+    height: 5vh;
+}
+
+h3 {
+    padding-top: 2vh;
+}
+
+.btn {
+    width: 100%;
+    opacity: 0.7;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+#sbm-btn {
+    margin-bottom: 3vh;
+}
+
+.today-weather {
+    opacity: 0;
+}
+
+.cityHeader {
+    padding-top: 1vh;
+    padding-left: 1vh;
+    margin-bottom: 0px;
+}
+
+.list-group-item {
+    padding-left: 1vh;
+    border: none;
+    padding-top: 0.5vh;
+}
+
+.save-city {
+    padding-top: 3vh;
+    border-top: solid 1px black;
+}
+
+.green {
+    background-color: green;
+    margin-left: 1vh;
+    width: 8vh;
+    color: white;
+}
+
+.yellow {
+    background-color: rgb(255, 255, 0);
+    margin-left: 1vh;
+    width: 8vh;
+}
+
+.orange {
+    background-color: darkorange;
+    color: white;
+    margin-left: 1vh;
+    width: 8vh;
+}
+
+.red {
+    background-color: red;
+    color: white;
+    margin-left: 1vh;
+    width: 8vh;
+}
+
+.forecast-days {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    border: none;
+    color: white;
+    background-color: rgb(48, 51, 84);
+    margin-bottom: 1vh;
+}
+
+.card-title {
+    font-weight: bold;
+    padding-top: 1vh;
+}
+
+.btn-secondary {
+    margin-bottom: 2vh;
 }
