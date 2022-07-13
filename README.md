@@ -5,6 +5,22 @@ The purpose of this website is to inform the user about weather conditions at a 
 
 Finally, the application saves past user searches so that the user can simply click on a "historical" button and display the weather for the saved city. 
 
+## Features 
+ * Save Searched Cities
+ * Current Day Forecast With: 
+    * Temperature
+    * Humidity
+    * Wind Speed
+    * UV Index --> Contains different background colors to orient user to danger of sunrays
+        * Red: Dangerous to stay exposed to long
+        * Yellow: Warning. Might be dangerous, sun is still strong
+        * Green: Sunrays not too strong. Safe
+* 5-Day Forecast With: 
+    * Temperature
+    * Wind Speed
+    * Humidity
+* All forecasts include an icon that changes according to the weather forecast.
+
 ## Built With
  * HTML
  * CSS
@@ -14,7 +30,7 @@ Finally, the application saves past user searches so that the user can simply cl
 https://matvaldejao.github.io/the-weather-app/
 
 ## Website Screenshot No City
-[!image](./assets/images/No%20City%20Screenshot.png)
+![image](./assets/images/No%20City%20Screenshot.png)
 
 ## Website Screenshot With City and History
-
+![image](./assets/images/With%20City%20Forecast.png)
