@@ -65,6 +65,7 @@ var displayForecast = function (data, city) {
 	// select all elements with class future-day
     var forecastEl = $(".future-day");
     forecastEl.children("p").remove();
+    forecastEl.children("h6").remove();
 
 
 	// loop through first five days of forecast
@@ -211,15 +212,15 @@ var dayTempAppend = function (temp, wind, humidity, uvi) {
 };
 
 var historyButtons = function (city) {
-	// add current city to storage and insert in page
-	var cityButtonEl = document.createElement("button");
-	cityButtonEl.setAttribute("type", "submit");
-	cityButtonEl.classList = "btn btn-secondary text-capitalize";
-	cityButtonEl.textContent = city;
+    // add current city to storage and insert in page
+    var cityButtonEl = document.createElement("button");
+    cityButtonEl.setAttribute("type", "submit");
+    cityButtonEl.classList = "btn btn-secondary text-capitalize";
+    cityButtonEl.textContent = city;
 
-	// append to page
-	saveCityEl.appendChild(cityButtonEl);
-}
+    // append to page
+    saveCityEl.appendChild(cityButtonEl);
+};
 
 var saveCity = function (city) {
     if (cityArr.indexOf(city) === -1) {
@@ -235,12 +236,17 @@ var saveCity = function (city) {
 var loadCities = function () {
     // retrieve city
     cityArr = localStorage.getItem("city");
+
+    if (cityArr === null) {
+        cityArr = [];
+        return
+    }
     cityArr = cityArr.split(",");
 
-    // setup history buttons
-    for (var i = 0; i < cityArr.length; i++) {
-        historyButtons(cityArr[i]);
-    }    
+	// setup history buttons
+	for (var i = 0; i < cityArr.length; i++) {
+		historyButtons(cityArr[i]);
+	}
 }
 
 var getCityForecast = function (event) {
