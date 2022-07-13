@@ -24,7 +24,7 @@ var retrieveData = function (city) {
 
 					// this has uv info
 					var url2 =
-						"http://api.openweathermap.org/data/2.5/onecall?lat=" +
+						"https://api.openweathermap.org/data/2.5/onecall?lat=" +
 						lat +
 						"&lon=" +
 						lon +
